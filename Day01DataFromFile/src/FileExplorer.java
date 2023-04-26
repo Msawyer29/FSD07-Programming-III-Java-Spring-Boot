@@ -26,7 +26,7 @@ public class FileExplorer {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error: Unable to read the file.");
+            System.out.println("Error: Unable to read the file.");
         }
     }
 
