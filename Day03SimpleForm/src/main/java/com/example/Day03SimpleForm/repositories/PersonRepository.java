@@ -9,7 +9,7 @@ public interface PersonRepository extends JpaRepository <Person, Long> {
     // Interface Jpa Repository (object , primary key)
     // ex getByID(), batch delete, save a given entity, deleteById(ID, id)
 
-    // framework convention example "findByName
+    // framework convention example "findByName"
     Person findByName(String name);
 
 

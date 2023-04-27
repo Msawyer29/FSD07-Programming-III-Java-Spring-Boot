@@ -6,15 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import jakarta.validation.Valid;
 
-import javax.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class PersonController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     // Constructor injection
     @Autowired
@@ -27,14 +30,17 @@ public class PersonController {
     }
 
     @PostMapping("/register")
-    public String registerPerson(@Valid Person person, BindingResult result) {
+    public String registerPerson(@Valid @ModelAttribute("person") Person person, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            logger.error("Validation errors: {}", result.getAllErrors());
+            model.addAttribute("person", person);
             return "people";
         }
 
         // From Spring CRUD document:
         // use the returned instance for further implementation as the save operation may have modified the entity
         person = personRepository.save(person);
+        System.out.println("Registered person: " + person.getName() + ", " + person.getAge());
         return "redirect:/success";
     }
 

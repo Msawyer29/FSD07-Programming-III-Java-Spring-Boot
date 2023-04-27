@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 // @Table(name="people") // recommended to use
@@ -24,13 +24,13 @@ public class Person {
     @Size(min = 1, max = 20, message = "Name must be between 1 and 20 characters")
     private String name;
 
-    @NotNull // not null in database
+    @NotNull(message = "Age is required") // not null in database
     @Min(value = 0, message = "Age must be greater than or equal to 0")
     @Max(value = 150, message = "Age must be less than or equal to 150")
-    private int age;
+    private Integer age; // Change from 'int' to 'Integer'
 
     // Constructor
-    public Person(String name, int age) {
+    public Person(String name, Integer age) { // Change from 'int' to 'Integer'
         this.name = name;
         this.age = age;
     }
@@ -44,11 +44,11 @@ public class Person {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() { // Change from 'int' to 'Integer'
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) { // Change from 'int' to 'Integer'
         this.age = age;
     }
 }
